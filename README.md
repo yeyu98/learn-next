@@ -2,7 +2,7 @@
  * @Author: lzy-Jerry
  * @Date: 2023-07-19 11:23:46
  * @LastEditors: lzy-Jerry
- * @LastEditTime: 2023-07-19 14:31:47
+ * @LastEditTime: 2023-07-19 15:32:32
  * @Description: 
 -->
 next原理是什么？
@@ -13,14 +13,51 @@ html是由服务端解析构建的，前端只负责渲染，这样会不会给�
 文件系统路由按照文件目录划分，文件目录是什么样的路由就是什么样的（咋那么像php呢小声bb...）
 
 ***app router***
+
 以文件夹来划分路由每个文件夹对应着链接上/的一节，app对应着根路由root /，在app文件夹下的都是服务端渲染的组件；
+
 
 路由节点
 每个文件夹都对应着url上的一截路径；
 ![Alt text](./images/image.png)
 
+路由定义
+路由文件下包含 
+![Alt text](./images/file-conventions.png)
+
+- Templates：和layout类似更为常见的是当作页面的布局，但不会保存状态交互，当某个路由进入该template时会重新创建一个template实例重新渲染和加载所有的子组件，除非有特殊场景否则一般推荐使用layout；
+
+- Layouts：一个layout可能对应着多个页面，首次加载layout之后会保存state、组件交互以及再次加载时不会重新渲染；
+  - app文件夹下的layout是整个应用的根，必须包含html和body片段；
+  - 在layout中无法向children传递数据，但是layout可以请求数据，当父layout和子layout请求相同的请求时react会自动去重达到优化的目的；
+  - layout的优先级高于page，在同一个文件夹中的layout会自动包裹page；
+  - 每个文件夹都可以定义他们自己的layout，当子路由被激活时会渲染子路由中的layout以及他们的内容；
+  
+- Pages：每个文件夹下的page.js对应当前路由
+  - 默认的page是服务端渲染的组件；
+  - 一般会在page文件下请求数据；
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 Q：那这里可以使用客户端渲染的组件吗？
+Q：template和layout的区别？
+当某个template承载的路由被激活时所有的内容都会重新渲染加载；
+而layout则会走缓存保存状态交互和数据；
 
 
 
