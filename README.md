@@ -2,7 +2,7 @@
  * @Author: lzy-Jerry
  * @Date: 2023-07-19 11:23:46
  * @LastEditors: lzy-Jerry
- * @LastEditTime: 2023-07-19 19:21:15
+ * @LastEditTime: 2023-07-19 20:11:41
  * @Description: 
 -->
 next原理是什么？
@@ -43,10 +43,16 @@ html是由服务端解析构建的，前端只负责渲染，这样会不会给�
   - 本质是由a标签封装而成，因此也通过href来跳转指定连接，也可以通过拼接query的方式动态设置跳转路由；
   - 在客户端渲染的组件中可以使用usePathname来获取当前路由；
 - useRouter
+  - 和react-router的类似不再赘述；
+  - 在使用上述跳转路由时由于next崇尚的是部分更新，所以只改变layout变化的部分，其他部分都不会发生改变不会重新请求数据也不会重新渲染；
 
-
-
-
+- 软导航：如果在一次导航时发现导航的路由路径（路径可以是params相同也可以是query相同）是之前导航过的那么会走缓存；
+- 硬导航：从服务端重新请求重新渲染新的页面；
+- Prefetching：使用Link标签跳转或useRouter().prefetch()时在访问某个路由之前会在后台预请求该路由的接口并缓存到客户端中（我要怎么验证它呢？）；
+  - 如果路由是静态路由，那么路由中所有的服务端渲染的组件都会被prefetch；
+  - 如果是动态路由，会等到第一个loading.js加载之后才会prefetch；
+  - prefetch只在生产环境下生效；
+  - Link可以通过传入prefetch={false}关闭prefetch；
 
 
 
