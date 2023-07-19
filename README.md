@@ -2,7 +2,7 @@
  * @Author: lzy-Jerry
  * @Date: 2023-07-19 11:23:46
  * @LastEditors: lzy-Jerry
- * @LastEditTime: 2023-07-19 15:32:32
+ * @LastEditTime: 2023-07-19 19:21:15
  * @Description: 
 -->
 next原理是什么？
@@ -25,6 +25,7 @@ html是由服务端解析构建的，前端只负责渲染，这样会不会给�
 路由文件下包含 
 ![Alt text](./images/file-conventions.png)
 
+容器&页面
 - Templates：和layout类似更为常见的是当作页面的布局，但不会保存状态交互，当某个路由进入该template时会重新创建一个template实例重新渲染和加载所有的子组件，除非有特殊场景否则一般推荐使用layout；
 
 - Layouts：一个layout可能对应着多个页面，首次加载layout之后会保存state、组件交互以及再次加载时不会重新渲染；
@@ -37,7 +38,11 @@ html是由服务端解析构建的，前端只负责渲染，这样会不会给�
   - 默认的page是服务端渲染的组件；
   - 一般会在page文件下请求数据；
 
-
+导航
+- <Link>
+  - 本质是由a标签封装而成，因此也通过href来跳转指定连接，也可以通过拼接query的方式动态设置跳转路由；
+  - 在客户端渲染的组件中可以使用usePathname来获取当前路由；
+- useRouter
 
 
 
