@@ -2,7 +2,7 @@
  * @Author: lzy-Jerry
  * @Date: 2023-07-19 11:23:46
  * @LastEditors: lzy-Jerry
- * @LastEditTime: 2023-07-21 16:44:12
+ * @LastEditTime: 2023-07-21 20:16:09
  * @Description: 
 -->
 next原理是什么？
@@ -83,11 +83,12 @@ refer to  https://www.sitepoint.com/next-js-error-handling-app-router/
 ![Alt text](./images/parallel-routes.png)
 - 通过@folder的方式声明，在主layout中通过具名插槽的方式渲染；
 - 平行路由中不匹配的路由（例子有点没看懂...）;
+  - default：当跳转到另外一个路由时发现这个路由下没有page页则会默认显示default的内容否则就404；
 
 
 
 拦截路由
-- 当跳转到指定路由时优先拦截当前路由，经过逻辑判断之后跳转到另外一个路由；
+- 当跳转到指定路由时优先拦截路由到指定的路由中；
   - 文件夹命名为 `(.)`表示拦截当前目录下的；  
   - 文件夹命名为 `(..)`表示拦截上一个目录下的；  
   - 文件夹命名为 `(..)(..)`表示拦截上上个目录下的；  

@@ -2,7 +2,7 @@
  * @Author: lzy-Jerry
  * @Date: 2023-07-19 11:23:46
  * @LastEditors: lzy-Jerry
- * @LastEditTime: 2023-07-21 15:17:20
+ * @LastEditTime: 2023-07-21 20:04:44
  * @Description: 
  */
 import './globals.css'
@@ -28,10 +28,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className='flex'>
+        <div className='w-full h-full flex'>
           <div className='flex-1'>{children}</div>
-          <div className='flex-1'>{analytics}</div>
-          <div className='flex-1'>{team}</div>
+          {/* {analytics && <div className='flex-1'>{analytics}</div>}
+          {team && <div className='flex-1'>{team}</div>} */}
         </div>
       </body>
     </html>
