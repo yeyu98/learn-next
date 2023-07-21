@@ -2,7 +2,7 @@
  * @Author: lzy-Jerry
  * @Date: 2023-07-19 11:23:46
  * @LastEditors: lzy-Jerry
- * @LastEditTime: 2023-07-21 14:48:30
+ * @LastEditTime: 2023-07-21 16:44:12
  * @Description: 
 -->
 next原理是什么？
@@ -70,7 +70,7 @@ loading & streaming
   - 目前还没太看出来差别；
 
 
-error 处理
+异常处理
 - error：在子路由中自动捕获路由中抛出的异常层级在路由段layout或template之下，路由段中的error会冒泡到最近的error组件中捕获；
 - global error：用于捕获app目录下的layout或template中抛出的错误必须声明为`global-error`层级在layout或template之上，其次在app/global-error必须加上html和body标签，因为在app/layout或template中抛出错误时，global error会捕获此时的ge替换了根节点的layout和template所以需要html和body；
 - 无论时服务端渲染组件还是客户端渲染的组件抛出的异常都会通过props传入`<Error />`中；
@@ -78,8 +78,20 @@ error 处理
 refer to  https://www.sitepoint.com/next-js-error-handling-app-router/
 
 
+平行路由
+- 用于实现在一个layout下同时或根据条件判断渲染多个page页；
+![Alt text](./images/parallel-routes.png)
+- 通过@folder的方式声明，在主layout中通过具名插槽的方式渲染；
+- 平行路由中不匹配的路由（例子有点没看懂...）;
 
 
+
+拦截路由
+- 当跳转到指定路由时优先拦截当前路由，经过逻辑判断之后跳转到另外一个路由；
+  - 文件夹命名为 `(.)`表示拦截当前目录下的；  
+  - 文件夹命名为 `(..)`表示拦截上一个目录下的；  
+  - 文件夹命名为 `(..)(..)`表示拦截上上个目录下的；  
+  - 文件夹命名为 `(...)`表示拦截app目录下的；  
 
 
 
@@ -100,6 +112,7 @@ Q：那这里可以使用客户端渲染的组件吗？
 Q：template和layout的区别？
 当某个template承载的路由被激活时所有的内容都会重新渲染加载；
 而layout则会走缓存保存状态交互和数据；
+Q：平行路由和我一个page里用多个组件渲染模块有什么区别？
 
 
 
