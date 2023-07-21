@@ -2,7 +2,7 @@
  * @Author: lzy-Jerry
  * @Date: 2023-07-19 11:23:46
  * @LastEditors: lzy-Jerry
- * @LastEditTime: 2023-07-20 09:54:12
+ * @LastEditTime: 2023-07-21 09:17:15
  * @Description: 
 -->
 next原理是什么？
@@ -27,13 +27,11 @@ html是由服务端解析构建的，前端只负责渲染，这样会不会给�
 
 容器&页面
 - Templates：和layout类似更为常见的是当作页面的布局，但不会保存状态交互，当某个路由进入该template时会重新创建一个template实例重新渲染和加载所有的子组件，除非有特殊场景否则一般推荐使用layout；
-
 - Layouts：一个layout可能对应着多个页面，首次加载layout之后会保存state、组件交互以及再次加载时不会重新渲染；
   - app文件夹下的layout是整个应用的根，必须包含html和body片段；
   - 在layout中无法向children传递数据，但是layout可以请求数据，当父layout和子layout请求相同的请求时react会自动去重达到优化的目的；
   - layout的优先级高于page，在同一个文件夹中的layout会自动包裹page；
   - 每个文件夹都可以定义他们自己的layout，当子路由被激活时会渲染子路由中的layout以及他们的内容；
-  
 - Pages：每个文件夹下的page.js对应当前路由
   - 默认的page是服务端渲染的组件；
   - 一般会在page文件下请求数据；
@@ -60,7 +58,16 @@ html是由服务端解析构建的，前端只负责渲染，这样会不会给�
 - 多片段动态路由：需要在文件夹下定义名为[...id]的文件名；
 - 可选参数动态路由：可选参数`[[...id]]` 与 [...id]不同的地方在于这个路由可以不传params，不能同时存在；
 
-
+loading & streaming
+- loading
+  - 一般会包裹layout或page通过Suspense；
+  - 一般用于导航时路由未加载出来时的pendding状态；
+- streaming：在ssr中所有与数据有关的组件都会由服务端渲染，那么如果一个页面复杂且所有的数据都需要由服务端渲染，那么从发送请求html到等待服务端渲染完成后会需要很长的时间才能看到页面，此时我们可以通过分块的思想将整个页面拆分更小的chunks让服务端渲染一小块客户端就呈现一小块大大提高了加载效率；
+  - 流模式中一般需要结合suspense使用，与数据相关的组件优先级会低于静态交互组件；
+  - ![Alt text](./images/chunks.png)
+  - ![Alt text](./images/all-data-fetch.png.png)
+  - ![Alt text](./images/break-down-chunk.png)
+  - 目前还没太看出来差别；
 
 
 
