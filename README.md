@@ -2,7 +2,7 @@
  * @Author: lzy-Jerry
  * @Date: 2023-07-19 11:23:46
  * @LastEditors: lzy-Jerry
- * @LastEditTime: 2023-07-21 09:17:15
+ * @LastEditTime: 2023-07-21 14:19:00
  * @Description: 
 -->
 next原理是什么？
@@ -68,6 +68,27 @@ loading & streaming
   - ![Alt text](./images/all-data-fetch.png.png)
   - ![Alt text](./images/break-down-chunk.png)
   - 目前还没太看出来差别；
+
+
+error 处理
+- error：在子路由中自动捕获路由中抛出的异常；
+- global error：根节点下的error必须声明为`global-error`，其次在global error下必须加上html和body标签，因为在app/layout或template中抛出错误时，global error会捕获此时的ge替换了根节点的layout和template所以需要html和body；
+- 无论时服务端渲染组件还是客户端渲染的组件抛出的异常都会通过props传入`<Error />`中；
+  - 服务端在生产环境的error会更为泛化，开发环境下更详细便于调试；
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
