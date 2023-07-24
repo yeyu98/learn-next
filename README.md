@@ -2,7 +2,7 @@
  * @Author: lzy-Jerry
  * @Date: 2023-07-19 11:23:46
  * @LastEditors: lzy-Jerry
- * @LastEditTime: 2023-07-21 20:16:09
+ * @LastEditTime: 2023-07-24 21:35:14
  * @Description: 
 -->
 next原理是什么？
@@ -67,7 +67,7 @@ loading & streaming
   - ![Alt text](./images/chunks.png)
   - ![Alt text](./images/all-data-fetch.png.png)
   - ![Alt text](./images/break-down-chunk.png)
-  - 目前还没太看出来差别；
+  - 目前还没太看出来分块流模式和全加载的区别差别；
 
 
 异常处理
@@ -93,6 +93,100 @@ refer to  https://www.sitepoint.com/next-js-error-handling-app-router/
   - 文件夹命名为 `(..)`表示拦截上一个目录下的；  
   - 文件夹命名为 `(..)(..)`表示拦截上上个目录下的；  
   - 文件夹命名为 `(...)`表示拦截app目录下的；  
+
+
+api路由处理器（contoller）
+- 基本概念
+  - 在next中因为可以近距离操作数据库，因此也可以写一些api通过路由处理器，作用等同于服务器；
+  - api写在route.ts文件里，且无法与page在同一层级，内容如下；
+  ```
+  export async function GET(request: Request) {}
+  ```
+  - 可以请求GET, POST, PUT, PATCH, DELETE, HEAD, and OPTIONS且每个函数内置request对象；
+  - NextRequest`https://nextjs.org/docs/app/api-reference/functions/next-request` NextResponse`https://nextjs.org/docs/app/api-reference/functions/next-response`是原生Request、Response的扩展；
+- 静态&动态路由处理器
+  - 静态数据和动态数据的区别在于静态数据会被缓存且可重复使用减少对数据库的操作；
+  - 静态路由处理器：用于处理返回静态数据的，静态数据会被缓存且可重验证（由于数据变动重新刷新数据）
+    - 使用GET请求；
+    - 没有通过query、params参数改变api？；
+    - 通过Response返回的api都会被认定为静态路由；
+    - 不管在哪或者不同用户请求这个接口返回的数据都一样；
+  - 动态路由处理器：用于处理返回动态数据的，动态数据每次都会刷新最新数据；
+    - Request和GET一起使用；
+    - 使用其他的HTTP方法除了GET；
+    - 使用Headers or Cookies等动态方法；
+      - Cookies
+        - 读取
+          - 这是服务端侧的方法可以从 `next/headers` 导出读取且只读；
+          - request.cookies.get()；
+        - 设置：
+          - 通过在路由处理器中设置`Set-Cookie: token=1212`设置cookie（服务端携带cookie给客户端的常规操作）；
+          ```
+          new Response(`Hello, I'll return a cookies and it name of token ${tokenFromCookies?.value}`, {
+              status: 200,
+              headers: {
+                  'Set-Cookie': `token=1212`
+              }
+          })
+          ```
+          - NextResponse.next的中间件设置；
+      - Headers
+        - 读取
+          - 这是服务端侧的方法可以从 `next/headers` 导出读取且只读；
+          - new Headers(request.headers);
+        - 设置在Response里设置；
+      - Request body: `await request.json()`
+      - Request formData: `await request.formData()`
+      - CORS
+        - 
+        ```
+          export async function GET(request: Request) {
+            return new Response('Hello, Next.js!', {
+              status: 200,
+              headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+                'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+              },
+            })
+          }
+        ```
+    - 手动指定动态路由模式；
+
+
+
+
+
+
+
+
+
+
+
+
+refer to `https://blog.logrocket.com/using-next-js-route-handlers/`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
