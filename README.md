@@ -2,7 +2,7 @@
  * @Author: lzy-Jerry
  * @Date: 2023-07-19 11:23:46
  * @LastEditors: lzy-Jerry
- * @LastEditTime: 2023-07-24 21:35:14
+ * @LastEditTime: 2023-07-25 20:08:12
  * @Description: 
 -->
 next原理是什么？
@@ -37,7 +37,7 @@ html是由服务端解析构建的，前端只负责渲染，这样会不会给�
   - 一般会在page文件下请求数据；
 
 导航
-- <Link>
+- `<Link>`
   - 本质是由a标签封装而成，因此也通过href来跳转指定连接，也可以通过拼接query的方式动态设置跳转路由；
   - 在客户端渲染的组件中可以使用usePathname来获取当前路由；
 - useRouter
@@ -103,7 +103,7 @@ api路由处理器（contoller）
   export async function GET(request: Request) {}
   ```
   - 可以请求GET, POST, PUT, PATCH, DELETE, HEAD, and OPTIONS且每个函数内置request对象；
-  - NextRequest`https://nextjs.org/docs/app/api-reference/functions/next-request` NextResponse`https://nextjs.org/docs/app/api-reference/functions/next-response`是原生Request、Response的扩展；
+  - NextRequest<a>https://nextjs.org/docs/app/api-reference/functions/next-request</a> NextResponse<a>https://nextjs.org/docs/app/api-reference/functions/next-response</a>是原生Request、Response的扩展；
 - 静态&动态路由处理器
   - 静态数据和动态数据的区别在于静态数据会被缓存且可重复使用减少对数据库的操作；
   - 静态路由处理器：用于处理返回静态数据的，静态数据会被缓存且可重验证（由于数据变动重新刷新数据）
