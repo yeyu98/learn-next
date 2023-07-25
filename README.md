@@ -2,7 +2,7 @@
  * @Author: lzy-Jerry
  * @Date: 2023-07-19 11:23:46
  * @LastEditors: lzy-Jerry
- * @LastEditTime: 2023-07-25 20:15:42
+ * @LastEditTime: 2023-07-25 20:16:54
  * @Description: 
 -->
 next原理是什么？
@@ -17,15 +17,15 @@ html是由服务端解析构建的，前端只负责渲染，这样会不会给�
 以文件夹来划分路由每个文件夹对应着链接上/的一节，app对应着根路由root /，在app文件夹下的都是服务端渲染的组件；
 
 
-路由节点
+### 路由节点
 每个文件夹都对应着url上的一截路径；
 ![Alt text](./images/image.png)
 
-路由定义
+### 路由定义
 路由文件下包含 
 ![Alt text](./images/file-conventions.png)
 
-容器&页面
+### 容器&页面
 - Templates：和layout类似更为常见的是当作页面的布局，但不会保存状态交互，当某个路由进入该template时会重新创建一个template实例重新渲染和加载所有的子组件，除非有特殊场景否则一般推荐使用layout；
 - Layouts：一个layout可能对应着多个页面，首次加载layout之后会保存state、组件交互以及再次加载时不会重新渲染；
   - app文件夹下的layout是整个应用的根，必须包含html和body片段；
@@ -36,7 +36,7 @@ html是由服务端解析构建的，前端只负责渲染，这样会不会给�
   - 默认的page是服务端渲染的组件；
   - 一般会在page文件下请求数据；
 
-导航
+### 导航
 - `<Link>`
   - 本质是由a标签封装而成，因此也通过href来跳转指定连接，也可以通过拼接query的方式动态设置跳转路由；
   - 在客户端渲染的组件中可以使用usePathname来获取当前路由；
@@ -52,16 +52,16 @@ html是由服务端解析构建的，前端只负责渲染，这样会不会给�
   - Link可以通过传入prefetch={false}关闭prefetch；
 
 
-路由组
+### 路由组
 - 路由组可以定义app下的路由而不会与url形成映射,通过`(id)`命名文件夹名称实现；
 
 
-动态路由
+### 动态路由
 - 单片段动态路由：需要在文件夹下定义名为[id]的文件名，表示这一片段为动态，url路径片段映射的内容由page呈现；
 - 多片段动态路由：需要在文件夹下定义名为[...id]的文件名；
 - 可选参数动态路由：可选参数`[[...id]]` 与 [...id]不同的地方在于这个路由可以不传params，不能同时存在；
 
-loading & streaming
+### loading & streaming
 - loading
   - 一般会包裹layout或page通过Suspense；
   - 一般用于导航时路由未加载出来时的pendding状态；
@@ -73,7 +73,7 @@ loading & streaming
   - 目前还没太看出来分块流模式和全加载的区别差别；
 
 
-异常处理
+### 异常处理
 - error：在子路由中自动捕获路由中抛出的异常层级在路由段layout或template之下，路由段中的error会冒泡到最近的error组件中捕获；
 - global error：用于捕获app目录下的layout或template中抛出的错误必须声明为`global-error`层级在layout或template之上，其次在app/global-error必须加上html和body标签，因为在app/layout或template中抛出错误时，global error会捕获此时的ge替换了根节点的layout和template所以需要html和body；
 - 无论时服务端渲染组件还是客户端渲染的组件抛出的异常都会通过props传入`<Error />`中；
@@ -82,7 +82,7 @@ loading & streaming
 refer to  https://www.sitepoint.com/next-js-error-handling-app-router/
 
 
-平行路由
+### 平行路由
 - 用于实现在一个layout下同时或根据条件判断渲染多个page页；
 ![Alt text](./images/parallel-routes.png)
 - 通过@folder的方式声明，在主layout中通过具名插槽的方式渲染；
@@ -91,7 +91,7 @@ refer to  https://www.sitepoint.com/next-js-error-handling-app-router/
 
 
 
-拦截路由
+### 拦截路由
 - 当跳转到指定路由时优先拦截路由到指定的路由中；
   - 文件夹命名为 `(.)`表示拦截当前目录下的；  
   - 文件夹命名为 `(..)`表示拦截上一个目录下的；  
@@ -99,7 +99,7 @@ refer to  https://www.sitepoint.com/next-js-error-handling-app-router/
   - 文件夹命名为 `(...)`表示拦截app目录下的；  
 
 
-api路由处理器（contoller）
+### api路由处理器（contoller）
 - 基本概念
   - 在next中因为可以近距离操作数据库，因此也可以写一些api通过路由处理器，作用等同于服务器；
   - api写在route.ts文件里，且无法与page在同一层级，内容如下；
