@@ -2,7 +2,7 @@
  * @Author: lzy-Jerry
  * @Date: 2023-07-19 11:23:46
  * @LastEditors: lzy-Jerry
- * @LastEditTime: 2023-07-25 20:14:20
+ * @LastEditTime: 2023-07-25 20:15:42
  * @Description: 
 -->
 next原理是什么？
@@ -78,6 +78,7 @@ loading & streaming
 - global error：用于捕获app目录下的layout或template中抛出的错误必须声明为`global-error`层级在layout或template之上，其次在app/global-error必须加上html和body标签，因为在app/layout或template中抛出错误时，global error会捕获此时的ge替换了根节点的layout和template所以需要html和body；
 - 无论时服务端渲染组件还是客户端渲染的组件抛出的异常都会通过props传入`<Error />`中；
   - 服务端在生产环境的error会更为泛化，开发环境下更详细便于调试；
+  
 refer to  https://www.sitepoint.com/next-js-error-handling-app-router/
 
 
