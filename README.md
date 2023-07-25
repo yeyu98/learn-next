@@ -2,7 +2,7 @@
  * @Author: lzy-Jerry
  * @Date: 2023-07-19 11:23:46
  * @LastEditors: lzy-Jerry
- * @LastEditTime: 2023-07-25 20:08:12
+ * @LastEditTime: 2023-07-25 20:14:20
  * @Description: 
 -->
 next原理是什么？
@@ -43,7 +43,6 @@ html是由服务端解析构建的，前端只负责渲染，这样会不会给�
 - useRouter
   - 和react-router的类似不再赘述；
   - 在使用上述跳转路由时由于next崇尚的是部分更新，所以只改变layout变化的部分，其他部分都不会发生改变不会重新请求数据也不会重新渲染；
-
 - 软导航：如果在一次导航时发现导航的路由路径（路径可以是params相同也可以是query相同）是之前导航过的那么会走缓存；
 - 硬导航：从服务端重新请求重新渲染新的页面；
 - Prefetching：当某个页面使用Link标签或useRouter().prefetch()的页面在访问之前会在后台预请求该页面的接口并缓存到客户端中；
@@ -51,8 +50,12 @@ html是由服务端解析构建的，前端只负责渲染，这样会不会给�
   - 如果是动态路由，会等到第一个loading.js加载之后才会prefetch（不太理解啥意思）；
   - prefetch只在生产环境下生效；
   - Link可以通过传入prefetch={false}关闭prefetch；
+
+
 路由组
-路由组可以定义app下的路由而不会与url形成映射；
+- 路由组可以定义app下的路由而不会与url形成映射,通过`(id)`命名文件夹名称实现；
+
+
 动态路由
 - 单片段动态路由：需要在文件夹下定义名为[id]的文件名，表示这一片段为动态，url路径片段映射的内容由page呈现；
 - 多片段动态路由：需要在文件夹下定义名为[...id]的文件名；
@@ -65,7 +68,7 @@ loading & streaming
 - streaming：在ssr中所有与数据有关的组件都会由服务端渲染，那么如果一个页面复杂且所有的数据都需要由服务端渲染，那么从发送请求html到等待服务端渲染完成后会需要很长的时间才能看到页面，此时我们可以通过分块的思想将整个页面拆分更小的chunks让服务端渲染一小块客户端就呈现一小块大大提高了加载效率；
   - 流模式中一般需要结合suspense使用，与数据相关的组件优先级会低于静态交互组件；
   - ![Alt text](./images/chunks.png)
-  - ![Alt text](./images/all-data-fetch.png.png)
+  - ![Alt text](./images/all-data-fetch.png)
   - ![Alt text](./images/break-down-chunk.png)
   - 目前还没太看出来分块流模式和全加载的区别差别；
 
@@ -103,7 +106,7 @@ api路由处理器（contoller）
   export async function GET(request: Request) {}
   ```
   - 可以请求GET, POST, PUT, PATCH, DELETE, HEAD, and OPTIONS且每个函数内置request对象；
-  - NextRequest<a>https://nextjs.org/docs/app/api-reference/functions/next-request</a> NextResponse<a>https://nextjs.org/docs/app/api-reference/functions/next-response</a>是原生Request、Response的扩展；
+  - NextRequest: <a>https://nextjs.org/docs/app/api-reference/functions/next-request</a> NextResponse: <a>https://nextjs.org/docs/app/api-reference/functions/next-response</a>是原生Request、Response的扩展；
 - 静态&动态路由处理器
   - 静态数据和动态数据的区别在于静态数据会被缓存且可重复使用减少对数据库的操作；
   - 静态路由处理器：用于处理返回静态数据的，静态数据会被缓存且可重验证（由于数据变动重新刷新数据）
@@ -164,7 +167,7 @@ api路由处理器（contoller）
 
 
 
-refer to `https://blog.logrocket.com/using-next-js-route-handlers/`
+refer to <a>https://blog.logrocket.com/using-next-js-route-handlers/</a>
 
 
 
